@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Froogie | Unfroogetably Sour! Selfie Filter</title>
+  <meta name="description"
+    content="Froogie selfie filter website for Unfroogetably Sour! Open your mouth to stick out the crazy fruit leather tongue, take a selfie, and send it to your email.">
+
+  <!-- Adobe Typekit Font Stylesheet -->
+  <link rel="stylesheet" href="https://use.typekit.net/rfo0dck.css">
+
+  <!-- App Stylesheet -->
+  <link rel="stylesheet" href="asset/css/style.css">
+
+  <link rel="icon" type="image/png" href="asset/image/campaigninteractive-logo.png">
+</head>
+
+<body>
+  <div class="app-container">
+
+    <!-- Screen 1: Live Camera (The main focus, starts immediately on open) -->
+    <section id="screen-camera" class="screen active">
+      <div class="camera-stage">
+        <!-- Live Camera Stream (mirrored) -->
+        <video id="camera-video" class="camera-video" autoplay playsinline muted></video>
+
+        <!-- Live Face-Tracking Tongue Canvas -->
+        <canvas id="filter-canvas" class="filter-canvas"></canvas>
+
+        <!-- Campaign Interactive Frame Overlay -->
+        <img id="camera-frame" class="camera-frame-overlay" src="asset/image/campaigninteractive-frame.png"
+          alt="Froogie Frame" draggable="false">
+
+        <!-- Froogie Logo Overlay (Top-Left) -->
+        <img id="camera-logo" class="camera-logo-overlay" src="asset/image/campaigninteractive-logo.png"
+          alt="Froogie Logo" draggable="false">
+
+        <!-- "OPEN YOUR MOUTH!" Instruction (visible when mouth is closed, hides when open) -->
+        <div id="mouth-instruction" class="mouth-instruction">
+          OPEN YOUR MOUTH!
+        </div>
+
+        <!-- Camera Bottom Controls (TAKE PHOTO button) -->
+        <div id="camera-active-controls" class="camera-controls">
+          <button id="btn-take-photo" class="shutter-btn" aria-label="Take Photo">
+            <span class="shutter-circle"></span>
+            <span>TAKE PHOTO</span>
+          </button>
+        </div>
+
+        <!-- Permission / Device Error Overlay -->
+        <div id="camera-error-overlay" class="camera-error-overlay hidden">
+          <div class="error-content">
+            <p id="camera-error-message">Camera access is required for the selfie filter.</p>
+            <div class="error-actions">
+              <button id="btn-retry-camera" class="btn btn-primary">
+                <span>ENABLE CAMERA</span>
+              </button>
+              <button id="btn-start-demo" class="btn btn-secondary">
+                <span>RUN DEMO</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Screen 2: Preview Captured Selfie -->
+    <section id="screen-preview" class="screen">
+      <div class="preview-stage">
+        <img id="preview-image" class="preview-img" alt="Your Froogie Selfie">
+      </div>
+
+      <!-- Exactly two options as specified: RETAKE and SEND PHOTO -->
+      <div class="preview-actions">
+        <button id="btn-retake" class="btn btn-secondary">
+          <span>RETAKE</span>
+        </button>
+        <button id="btn-send-proceed" class="btn btn-primary">
+          <span>SEND PHOTO</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Screen 3: Send Photo via Email -->
+    <section id="screen-email" class="screen">
+      <div class="email-card">
+        <!-- Input Form -->
+        <div id="email-form-section">
+          <h2 class="email-title">Send Your Selfie</h2>
+          <p class="email-desc">Enter your email address to receive your Unfroogetably Sour photo!</p>
+
+          <form id="email-form" class="email-form" onsubmit="return false;">
+            <div class="form-group">
+              <input id="email-input" class="form-input" type="email" placeholder="Enter your email address" required
+                autocomplete="email" spellcheck="false">
+            </div>
+
+            <button id="btn-send-email" type="submit" class="btn btn-primary btn-large">
+              <span>SEND MY SELFIE</span>
+            </button>
+          </form>
+
+          <div id="email-error-banner" class="status-banner error hidden"></div>
+        </div>
+
+        <!-- Success Confirmation State -->
+        <div id="email-success-section" class="success-section hidden">
+          <div class="success-icon">🐸🍋</div>
+          <h2 class="success-title">Selfie Sent!</h2>
+          <p id="email-success-desc" class="success-desc">
+            Your selfie was successfully accepted for delivery! Check your inbox soon.
+          </p>
+          <button id="btn-take-another" class="btn btn-primary btn-large">
+            <span>TAKE ANOTHER SELFIE</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Offscreen canvas for compositing the final high-resolution selfie -->
+  <canvas id="composite-canvas" style="display: none;"></canvas>
+
+  <!-- Application Logic -->
+  <script type="module" src="asset/js/app.js"></script>
+</body>
+
+</html>
